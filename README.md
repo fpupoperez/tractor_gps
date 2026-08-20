@@ -64,7 +64,7 @@ tractor_gps/
 
 ### Dependencies
 
-Install **TinyGPS++** via the Arduino Library Manager (Sketch > Include Library > Manage Libraries).
+Install **TinyGPS++** and **ArduinoJson** (v7+) via the Arduino Library Manager (Sketch > Include Library > Manage Libraries).
 
 ### Board Configuration
 
@@ -88,7 +88,15 @@ In Arduino IDE, select:
 | Pulse | 100 ms | Solenoid energize duration |
 | Look-ahead | 0.05 s | Speed-based predictive delay |
 
-All values are configurable via the web portal and saved to flash.
+All values are configurable via the web portal.
+
+### Configuration Persistence
+
+All settings and A-B line coordinates are stored as a JSON file (`/config.json`) on the ESP32's internal LittleFS flash partition. On boot, the firmware restores them automatically, so configuration survives power cycles -- no need to re-mark Point A/B or re-enter row spacing after every restart.
+
+- Saved whenever you apply the config form, mark a point, or reset field lines
+- Missing keys or a corrupt file fall back to the defaults above
+- The flash partition is formatted automatically on first boot
 
 ## WiFi Web Portal
 
